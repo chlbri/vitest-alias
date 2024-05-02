@@ -3,7 +3,7 @@ import type { UserConfig } from 'vitest/config';
 
 type Entry = [string, string];
 
-type TsConf = Record<string, unknown> & {
+type TsConf = {
   compilerOptions?: {
     paths?: Record<string, string[]>;
     baseUrl?: string;
@@ -34,6 +34,20 @@ const transformer = (baseUrl?: string) => {
   };
 };
 
+/**
+ * Add manually your alias with this function
+ * @param tsconfig The tsconfig json
+ * @returns a vitest config
+ *
+ * @example
+ * <code>
+ * {
+ *   test: {
+ *     alias: createAlias(tsconfig),
+ *   }
+ * }
+ *</code>
+ */
 export const createAlias = (tsconfig?: TsConf) => {
   const paths = tsconfig?.compilerOptions?.paths;
   if (!paths) return {};
@@ -49,6 +63,17 @@ export const createAlias = (tsconfig?: TsConf) => {
   return object;
 };
 
+/**
+ * Plugin to add alias from tsconfig to test.alias
+ *
+ * @param tsconfig The tsconfig json
+ * @returns a vitest config
+ *
+ * @remarks
+ * Make sure you add "resolveJsonModule": true
+ * inside your tsconfig.json at compilerOPtions
+ * or add the json directly
+ */
 export const aliasTs = (tsconfig?: TsConf): Plugin => ({
   name: 'aliasTs',
   enforce: 'pre',
