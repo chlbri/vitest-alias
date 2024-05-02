@@ -8,9 +8,10 @@ import typescript from 'rollup-plugin-typescript2';
 const ignore = [
   '**/*.test.ts',
   '**/*.fixtures.ts',
-  './src/config/**/*.ts',
-  '**/*.typegen.ts',
-  'src/machines/main/main.machine.types.ts',
+  'src/config/**/*.ts',
+  'src/fixtures',
+  'src/tests/**/*',
+  'src/config/**/*',
 ];
 
 const input = Object.fromEntries(
@@ -35,13 +36,12 @@ export default defineConfig({
   plugins: [
     typescript({
       tsconfigOverride: {
-        exclude: ['src/**/*.test.ts', 'src/fixtures', 'src/config'],
+        exclude: ignore,
       },
     }),
     tscAlias(),
   ],
   external: ['node:path'],
-
   output: [
     {
       format: 'cjs',
