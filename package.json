@@ -1,6 +1,6 @@
 {
   "name": "@bemedev/vitest-alias",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Add ts-alias to vitest",
   "author": {
     "email": "bri_lvi@icloud.com",
